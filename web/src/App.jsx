@@ -57,7 +57,7 @@ function App() {
         restitution: 1,
         friction: 0.005,
         render: {
-          fillStyle: "#00000",
+          fillStyle: "#FF0000",
         },
       }
     );
@@ -75,7 +75,10 @@ function App() {
         height: "100vh",
       }}
     >
-      <div ref={scene} style={{ width: "800px", height: "600px" }} />
+      <div
+        ref={scene}
+        style={{ width: "800px", height: "600px", backgroundColor: "black" }}
+      />
     </div>
   );
 }
