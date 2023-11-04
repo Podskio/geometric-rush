@@ -61,7 +61,7 @@ function App() {
       {
         mass: 10,
         restitution: 0,
-        friction: 0.005,
+        friction: 0,
         render: {
           fillStyle: "#FF0000",
         },
