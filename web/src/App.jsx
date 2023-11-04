@@ -6,8 +6,6 @@ import { useEffect, useRef } from "react";
 function App() {
   const scene = useRef();
   const engine = useRef(Engine.create());
-  const cw = document.body.clientWidth;
-  const ch = document.body.clientHeight;
 
   useEffect(() => {
     const render = Render.create({
@@ -39,10 +37,10 @@ function App() {
 
   const loadBounds = () => {
     World.add(engine.current.world, [
-      Bodies.rectangle(cw / 2, -10, cw, 20, { isStatic: true }),
-      Bodies.rectangle(-10, ch / 2, 20, ch, { isStatic: true }),
-      Bodies.rectangle(cw / 2, ch + 10, cw, 20, { isStatic: true }),
-      Bodies.rectangle(cw + 10, ch / 2, 20, ch, { isStatic: true }),
+      Bodies.rectangle(-15, 300, 30, 660, { isStatic: true }), // left
+      Bodies.rectangle(815, 300, 30, 660, { isStatic: true }), // right
+      Bodies.rectangle(400, -15, 800, 30, { isStatic: true }), // top // Yellow
+      Bodies.rectangle(400, 615, 800, 30, { isStatic: true }), // bottom // Red
     ]);
   };
 
