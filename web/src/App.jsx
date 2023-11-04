@@ -1,11 +1,13 @@
 import "./App.css";
 
-import { Bodies, Engine, Render, World } from "matter-js";
+import { Bodies, Engine, Render, World, Runner } from "matter-js";
 import { useEffect, useRef } from "react";
+import Player from "./components/Player";
 
 function App() {
   const scene = useRef();
   const engine = useRef(Engine.create());
+  engine.current.gravity.scale  = 0.00005;
 
   useEffect(() => {
     const render = Render.create({
@@ -23,6 +25,12 @@ function App() {
 
     Engine.run(engine.current);
     Render.run(render);
+    const runner = Runner.create();
+    
+    Runner.run(runner, engine.current);
+    
+    Player(false, engine, runner);
+    
 
     return () => {
       Render.stop(render);
@@ -52,7 +60,7 @@ function App() {
       50,
       {
         mass: 10,
-        restitution: 1,
+        restitution: 0,
         friction: 0.005,
         render: {
           fillStyle: "#FF0000",
