@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 function Interface(props) {
   // eslint-disable-next-line react/prop-types
-  const { shape, setShape } = props;
+  const { shape, setShape, shapelimit, restartLevel } = props;
+
   return (
     <div
       style={{
@@ -23,7 +25,9 @@ function Interface(props) {
         }}
       >
         <img src={"/Circle.svg"} />
-        <p style={{ fontFamily: "sans-serif", fontSize: "20px" }}>x 1</p>
+        <p style={{ fontFamily: "sans-serif", fontSize: "20px" }}>
+          x {shapelimit.circle || 0}
+        </p>
       </div>
       <div
         onMouseDown={() => setShape("square")}
@@ -35,7 +39,9 @@ function Interface(props) {
         }}
       >
         <img src={"/Square.svg"} />
-        <p style={{ fontFamily: "sans-serif", fontSize: "20px" }}>x 1</p>
+        <p style={{ fontFamily: "sans-serif", fontSize: "20px" }}>
+          x {shapelimit.square || 0}
+        </p>
       </div>
       <div
         onMouseDown={() => setShape("triangle")}
@@ -47,7 +53,9 @@ function Interface(props) {
         }}
       >
         <img src={"/Triange.svg"} />
-        <p style={{ fontFamily: "sans-serif", fontSize: "20px" }}>x 1</p>
+        <p style={{ fontFamily: "sans-serif", fontSize: "20px" }}>
+          x {shapelimit.triangle || 0}
+        </p>
       </div>
       <div
         onMouseDown={() => setShape("bridge")}
@@ -59,9 +67,12 @@ function Interface(props) {
         }}
       >
         <img src={"/Bridge.svg"} />
-        <p style={{ fontFamily: "sans-serif", fontSize: "20px" }}>x 1</p>
+        <p style={{ fontFamily: "sans-serif", fontSize: "20px" }}>
+          x {shapelimit.bridge || 0}
+        </p>
       </div>
       <div
+        onMouseDown={() => restartLevel()}
         style={{
           position: "absolute",
           right: "40px",
