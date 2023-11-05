@@ -2,7 +2,6 @@ import "./App.css";
 
 import { useState } from "react";
 import { Bodies, Engine, Render, World, Runner } from "matter-js";
-import { Interface } from "./components/interface";
 import { useEffect, useRef } from "react";
 import Interface from "./components/interface";
 import Player from "./components/Player";
