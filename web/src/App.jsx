@@ -1,11 +1,14 @@
 import "./App.css";
 
+import { useState } from 'react';
 import { Bodies, Engine, Render, World } from "matter-js";
 import { useEffect, useRef } from "react";
+import Interface from "./components/interface";
 
 function App() {
   const scene = useRef();
   const engine = useRef(Engine.create());
+  const [shape, setShape] = useState();
 
   useEffect(() => {
     const render = Render.create({
@@ -45,14 +48,15 @@ function App() {
   };
 
   const handleAddRectangle = (mouseDownEvent) => {
+    console.log(mouseDownEvent.nativeEvent.offsetX,mouseDownEvent.nativeEvent.offsetY)
     const rectangle = Bodies.rectangle(
-      mouseDownEvent.clientX,
-      mouseDownEvent.clientY,
+      mouseDownEvent.nativeEvent.offsetX,
+      mouseDownEvent.nativeEvent.offsetY,
       50,
       50,
       {
         mass: 10,
-        restitution: 1,
+        restitution: 0,
         friction: 0.005,
         render: {
           fillStyle: "#FF0000",
@@ -64,19 +68,26 @@ function App() {
 
   return (
     <div
-      onMouseDown={handleAddRectangle}
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100vw",
-        height: "100vh",
-      }}
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "100vw",
+      height: "100vh",
+    }}
     >
+      
       <div
+        onMouseDown={handleAddRectangle}
         ref={scene}
         style={{ width: "800px", height: "600px", backgroundColor: "black" }}
+      ><Interface 
+
+        shape={shape}
+        setShape={setShape}
+
       />
+      </div>
     </div>
   );
 }
