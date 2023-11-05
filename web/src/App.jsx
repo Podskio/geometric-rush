@@ -5,11 +5,11 @@ import { Bodies, Engine, Render, World, Runner } from "matter-js";
 import { useEffect, useRef } from "react";
 import Interface from "./components/interface";
 import Player from "./components/Player";
+import LevelInit from "./components/Level1";
 
 function App() {
   const scene = useRef();
   const engine = useRef(Engine.create());
-  const [shape, setShape] = useState();
   engine.current.gravity.scale = 0.00005;
 
   useEffect(() => {
@@ -26,11 +26,14 @@ function App() {
 
     loadBounds();
 
+    LevelInit(engine.current.world);
+
     Engine.run(engine.current);
     Render.run(render);
     const runner = Runner.create();
 
     Runner.run(runner, engine.current);
+
     Player(false, engine, runner);
 
     return () => {
@@ -48,8 +51,8 @@ function App() {
     World.add(engine.current.world, [
       Bodies.rectangle(-15, 300, 30, 660, { isStatic: true }), // left
       Bodies.rectangle(815, 300, 30, 660, { isStatic: true }), // right
-      Bodies.rectangle(400, -15, 800, 30, { isStatic: true }), // top // Yellow
-      Bodies.rectangle(400, 615, 800, 30, { isStatic: true }), // bottom // Red
+      Bodies.rectangle(400, -15, 800, 30, { isStatic: true }), // top
+      Bodies.rectangle(400, 615, 800, 30, { isStatic: true }), // bottom
     ]);
   };
 
@@ -88,10 +91,8 @@ function App() {
       <div
         onMouseDown={handleAddRectangle}
         ref={scene}
-        style={{ width: "800px", height: "600px", backgroundColor: "black" }}
-      >
-        <Interface shape={shape} setShape={setShape} />
-      </div>
+        style={{ width: "800px", height: "600px", backgroundColor: "white" }}
+      />
     </div>
   );
 }

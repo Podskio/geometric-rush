@@ -10,8 +10,6 @@ function Player(canMove, engine, runner) {
     name: "player",
   });
 
-  
-
   Events.on(engine.current, "collisionStart", (event) => {
     const pairs = event.pairs;
     // console.log(pairs); TODO: remove me!
@@ -25,10 +23,13 @@ function Player(canMove, engine, runner) {
         (bodyA.name === "spike" && bodyB.name == "player")
       ) {
         console.log("player dead!");
+      } else if (
+        (bodyA.name === "player" && bodyB.name === "goal") ||
+        (bodyA.name === "goal" && bodyA.name === "player")
+      ) {
+        console.log("player won... loading the next level... jk");
       }
     }
-
-
   });
 
   const keys = {};
@@ -39,12 +40,10 @@ function Player(canMove, engine, runner) {
     const force = 0.05;
 
     if (event.key == "w" || event.key == "ArrowUp") {
-        
-        if(time > time2 + 2500){
-            Body.applyForce(player, player.position, { x: 0, y: -force * 2 });
-            time2 = time;
-        }
-      
+      if (time > time2 + 2500) {
+        Body.applyForce(player, player.position, { x: 0, y: -force * 2 });
+        time2 = time;
+      }
     }
   });
 
@@ -64,8 +63,6 @@ function Player(canMove, engine, runner) {
       Body.applyForce(player, player.position, { x: force, y: 0 });
     }
   });
-
-  
 
   World.add(engine.current.world, [player]);
 }
