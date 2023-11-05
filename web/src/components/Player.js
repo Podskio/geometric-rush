@@ -10,32 +10,7 @@ function Player(canMove, engine, runner) {
     name: "player",
   });
 
-  const keys = {};
-
-  document.addEventListener("keydown", (event) => {
-    keys[event.key] = true;
-    const force = 0.05;
-
-    if (event.key == "w" || event.key == "ArrowUp") {
-      Body.applyForce(player, player.position, { x: 0, y: -force * 2 });
-    }
-  });
-
-  document.addEventListener("keyup", (event) => {
-    keys[event.key] = false;
-  });
-
-  Events.on(runner, "beforeUpdate", () => {
-    const force = 0.0025;
-
-    if (keys["a"] || keys["ArrowLeft"]) {
-      Body.applyForce(player, player.position, { x: -force, y: 0 });
-    }
-
-    if (keys["d"] || keys["ArrowRight"]) {
-      Body.applyForce(player, player.position, { x: force, y: 0 });
-    }
-  });
+  
 
   Events.on(engine.current, "collisionStart", (event) => {
     const pairs = event.pairs;
@@ -52,7 +27,45 @@ function Player(canMove, engine, runner) {
         console.log("player dead!");
       }
     }
+
+
   });
+
+  const keys = {};
+  let time = 0;
+  let time2 = 0;
+  document.addEventListener("keydown", (event) => {
+    keys[event.key] = true;
+    const force = 0.05;
+
+    if (event.key == "w" || event.key == "ArrowUp") {
+        
+        if(time > time2 + 2500){
+            Body.applyForce(player, player.position, { x: 0, y: -force * 2 });
+            time2 = time;
+        }
+      
+    }
+  });
+
+  document.addEventListener("keyup", (event) => {
+    keys[event.key] = false;
+  });
+
+  Events.on(runner, "beforeUpdate", (option) => {
+    time = option.timestamp - time2;
+    const force = 0.0025;
+
+    if (keys["a"] || keys["ArrowLeft"]) {
+      Body.applyForce(player, player.position, { x: -force, y: 0 });
+    }
+
+    if (keys["d"] || keys["ArrowRight"]) {
+      Body.applyForce(player, player.position, { x: force, y: 0 });
+    }
+  });
+
+  
 
   World.add(engine.current.world, [player]);
 }

@@ -28,8 +28,8 @@ function App() {
     const runner = Runner.create();
     
     Runner.run(runner, engine.current);
-    
     Player(false, engine, runner);
+    
     
 
     return () => {
@@ -51,6 +51,8 @@ function App() {
       Bodies.rectangle(400, 615, 800, 30, { isStatic: true }), // bottom // Red
     ]);
   };
+  
+  
 
   const handleAddRectangle = (mouseDownEvent) => {
     const rectangle = Bodies.rectangle(
