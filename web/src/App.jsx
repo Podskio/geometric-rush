@@ -1,14 +1,17 @@
 import "./App.css";
 
-import { useState } from 'react';
-import { Bodies, Engine, Render, World } from "matter-js";
+import { useState } from "react";
+import { Bodies, Engine, Render, World, Runner } from "matter-js";
+import { Interface } from "./components/interface";
 import { useEffect, useRef } from "react";
 import Interface from "./components/interface";
+import Player from "./components/Player";
 
 function App() {
   const scene = useRef();
   const engine = useRef(Engine.create());
   const [shape, setShape] = useState();
+  engine.current.gravity.scale = 0.00005;
 
   useEffect(() => {
     const render = Render.create({
@@ -26,6 +29,10 @@ function App() {
 
     Engine.run(engine.current);
     Render.run(render);
+    const runner = Runner.create();
+
+    Runner.run(runner, engine.current);
+    Player(false, engine, runner);
 
     return () => {
       Render.stop(render);
@@ -48,7 +55,10 @@ function App() {
   };
 
   const handleAddRectangle = (mouseDownEvent) => {
-    console.log(mouseDownEvent.nativeEvent.offsetX,mouseDownEvent.nativeEvent.offsetY)
+    console.log(
+      mouseDownEvent.nativeEvent.offsetX,
+      mouseDownEvent.nativeEvent.offsetY
+    );
     const rectangle = Bodies.rectangle(
       mouseDownEvent.nativeEvent.offsetX,
       mouseDownEvent.nativeEvent.offsetY,
@@ -57,7 +67,7 @@ function App() {
       {
         mass: 10,
         restitution: 0,
-        friction: 0.005,
+        friction: 0,
         render: {
           fillStyle: "#FF0000",
         },
@@ -68,25 +78,20 @@ function App() {
 
   return (
     <div
-    style={{
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      width: "100vw",
-      height: "100vh",
-    }}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100vw",
+        height: "100vh",
+      }}
     >
-      
       <div
         onMouseDown={handleAddRectangle}
         ref={scene}
         style={{ width: "800px", height: "600px", backgroundColor: "black" }}
-      ><Interface 
-
-        shape={shape}
-        setShape={setShape}
-
-      />
+      >
+        <Interface shape={shape} setShape={setShape} />
       </div>
     </div>
   );
