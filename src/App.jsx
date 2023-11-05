@@ -5,14 +5,14 @@ import { useEffect, useRef, useState } from "react";
 
 import Player from "./components/Player";
 import Interface from "./components/interface";
-import EndScreenInit from "./levels/EndScreen";
 import HomeScreenInit from "./levels/HomeScreen";
 import LevelInit1 from "./levels/Level1";
 import LevelInit2 from "./levels/Level2";
 import LevelInit3 from "./levels/Level3";
 import LevelInit4 from "./levels/Level4";
-import LevelInit5 from "./levels/Level5";
 import TitleScreen from "./levels/TitleScreen";
+
+// import LevelInit5 from "./levels/Level5";
 
 function App() {
   const scene = useRef();
@@ -22,7 +22,7 @@ function App() {
 
   const [shape, setShape] = useState();
   const [shapelimit, setLimit] = useState({});
-  const [currentLevel, setCurrentLevel] = useState("end");
+  const [currentLevel, setCurrentLevel] = useState("home");
 
   useEffect(() => {
     const render = Render.create({
@@ -61,8 +61,7 @@ function App() {
     level2: LevelInit2,
     level3: LevelInit3,
     level4: LevelInit4,
-    level5: LevelInit5,
-    end: EndScreenInit,
+    // level5: LevelInit5,
   };
 
   // used to increment ID at the end of level name string
@@ -71,8 +70,8 @@ function App() {
     level1: "level2",
     level2: "level3",
     level3: "level4",
-    level4: "level5",
-    level5: "end",
+    level4: "home",
+    // level5: "home",
   };
 
   /* This function switches to the given level.
@@ -85,7 +84,7 @@ function App() {
     const levelShapeLimit = levelNameToFunction[levelName](
       engine.current.world
     );
-    if (levelName != "home" && levelName != "end" && levelName != "about") {
+    if (levelName != "home") {
       Player(false, engine, runner.current);
     }
 
@@ -110,11 +109,7 @@ function App() {
       Bodies.rectangle(815, 300, 30, 660, { isStatic: true }), // right
       Bodies.rectangle(400, -15, 800, 30, { isStatic: true }), // top
     ]);
-    if (
-      currentLevel === "home" ||
-      currentLevel === "about" ||
-      currentLevel === "end"
-    ) {
+    if (currentLevel === "home") {
       World.add(
         engine.current.world,
         Bodies.rectangle(400, 615, 800, 30, {
