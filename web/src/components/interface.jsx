@@ -27,21 +27,36 @@ function Interface(props) {
       </div>
       <div
         onMouseDown={() => setShape("square")}
-        style={{ display: "flex", gap: "20px" }}
+        style={{
+          backgroundColor: (shape == "square" && "#C6C5C5") || "#D9D9D9",
+          padding: "10px",
+          display: "flex",
+          gap: "20px",
+        }}
       >
         <img src={"/Square.svg"} />
         <p style={{ fontFamily: "sans-serif", fontSize: "20px" }}>x 1</p>
       </div>
       <div
         onMouseDown={() => setShape("triangle")}
-        style={{ display: "flex", gap: "20px" }}
+        style={{
+          backgroundColor: (shape == "triangle" && "#C6C5C5") || "#D9D9D9",
+          padding: "10px",
+          display: "flex",
+          gap: "20px",
+        }}
       >
         <img src={"/Triange.svg"} />
         <p style={{ fontFamily: "sans-serif", fontSize: "20px" }}>x 1</p>
       </div>
       <div
         onMouseDown={() => setShape("bridge")}
-        style={{ display: "flex", gap: "20px" }}
+        style={{
+          backgroundColor: (shape == "bridge" && "#C6C5C5") || "#D9D9D9",
+          padding: "10px",
+          display: "flex",
+          gap: "20px",
+        }}
       >
         <img src={"/Bridge.svg"} />
         <p style={{ fontFamily: "sans-serif", fontSize: "20px" }}>x 1</p>
